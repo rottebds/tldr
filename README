@@ -2,6 +2,7 @@ What is TLDR?
 
 TLDR is a popular internet acronym for "Too Long; Didn't Read". It's accepted usage prefixes a summary of a longer body of text.
 TLDR for Black Duck summarizes Black Duck log packages and gives you the summary of the issues, so you don't need to scroll through massive log files.
+TLDR will also work on Coverity log files if you add the flag --isCoverity true, although it is designed for Black Duck
 
 How do I install it?
 
