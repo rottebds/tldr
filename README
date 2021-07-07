@@ -1,11 +1,15 @@
 What is TLDR?
+
 TLDR is a popular internet acronym for "Too Long; Didn't Read". It's accepted usage prefixes a summary of a longer body of text.
 TLDR for Black Duck summarizes Black Duck log packages and gives you the summary of the issues, so you don't need to scroll through massive log files.
+TLDR will also work on Coverity log files if you add the flag --isCoverity true, although it is designed for Black Duck
 
 How do I install it?
+
 Make sure to install the requirements.txt file: pip3 install -r requirements.txt
 
 How does it work?
+
 Using Python3, there are several different search modes that TLDR can be run as to ensure that you are parsing out the data you need. By default it will attempt to unzip the small zip package from the logs, but you can specify the standard.zip by setting the property --size STANDARD
 
 TLDR will create a tldr directory named after your log package that will collect your results from the individual scans that it runs. These are summaries built from the errors that happened in the logs. You most likely still need to reference the original log package for the full picture, but this will help draw your attention to the problems happening within the logs.
@@ -25,4 +29,4 @@ Detect timeout recommendation: TLDR will also analyze the lengths of completed s
 It also will automatically fetch sysinfo, jobinfo, scaninfo, and if it exists in the log package, the system check.
 
 Usage:
-python3 tldr.py --zip blackducklogs.zip --size small --string "ScanPurgeJob" --fuzzy-search "dispatch" --keywords "ScanAutoBomJob,VersionBomComputationJob" --scanid "9535e51d-7955-4a26-8e54-bc02a92453fd" --skip-summary TRUE
+python3 tldr.py --log blackducklogs.zip --size small --string "ScanPurgeJob" --fuzzy-search "dispatch" --keywords "ScanAutoBomJob,VersionBomComputationJob" --scanid "9535e51d-7955-4a26-8e54-bc02a92453fd" --skip-summary TRUE
