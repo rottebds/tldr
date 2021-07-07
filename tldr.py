@@ -65,7 +65,7 @@ def printError():
     print("Error: " + str(sys.exc_info()[0]))
 
 
-if os.path.exists(logPath):
+if os.path.isdir(logPath):
     logDir = logPath
 
 if not os.path.exists(logDir):
@@ -294,7 +294,7 @@ def searchScanId(scanid):
 def sysinfo():
     print("Grabbing system, scan, and job info...")
     print("----------------------------------")
-    debugDir = logDir + "/debug/"
+    debugDir = logName + "/debug/"
     try:
         for file in os.listdir(debugDir):
             if file.startswith("sysinfo"):
