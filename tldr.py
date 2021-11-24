@@ -52,6 +52,7 @@ skipSum = str(args.skipsum)
 fuzzString = str(args.fuzz)
 keywords = str(args.keywords)
 
+api_pattern = r"limit=[3-9]\d{2,}"
 pattern = "WARN|ERROR|^\tat |Exception|^Caused by: |\t... \d+ more"
 grepString = re.compile(pattern)
 cwd = os.getcwd()
@@ -188,6 +189,37 @@ def stringSearch(pattern):
             file.close()
         except IOError:
             printError()
+    print("----------------------------------")
+
+def api_problem_calls(api_pattern):
+    print("Running api search on: \"" + api_pattern + "\"")
+    print("----------------------------------")
+    result = sorted([y for x in os.walk(logDir) for y in glob(os.path.join(x[0], '*.log'))])
+    include_pattern = "hub-webserver"
+    include = re.compile(include_pattern)
+    exclude_pattern = "app-log|gc-log|nginx-errors|scansummary|debug"
+    exclude = re.compile(exclude_pattern)
+    try:
+        for i in result:
+            if not re.findall(include, i):
+                continue
+            if re.findall(exclude, i):
+                continue
+            print(i)
+            file = open(i, "r")
+            output = open(tldrDir + "/suspect_api_calls.log", "a")
+            output.write("\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\nFILE: " + str(
+                i[len(logDir) + 1:len(i)]) + "\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n")
+            for line in file:
+                if re.findall(api_pattern, line):
+                    try:
+                        output.write(line)
+                    except IOError:
+                        printError()
+            output.close()
+            file.close()
+    except IOError:
+        printError()
     print("----------------------------------")
 
 
@@ -402,5 +434,6 @@ if __name__ == '__main__':
     if str(isCoverity).upper() != "TRUE":
         sysinfo()
         scanTimeToComplete()
+        api_problem_calls(api_pattern)
     print("----------------------------------")
     print("All scans complete.")
