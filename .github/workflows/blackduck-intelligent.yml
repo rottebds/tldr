@@ -31,14 +31,14 @@ jobs:
       - name: Run Synopsys Detect
         uses: synopsys-sig/detect-action@v0.2.0
         # This server does not require a local CA Cert
-        #env:
-        #  NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
+        env:
+          NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
         # Enable diagnostic mode
         env:
           DETECT_DIAGNOSTIC: true
         #  DETECT_DIAGNOSTIC_EXTENDED: true
         with:
-            scan-mode: INTELLIGENT
+            scan-mode: RAPID
             github-token: ${{ secrets.GITHUB_TOKEN }}
             detect-version: 7.9.0
             blackduck-url: ${{ secrets.BLACKDUCK_URL }}
