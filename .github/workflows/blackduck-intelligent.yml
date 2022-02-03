@@ -29,7 +29,7 @@ jobs:
         
       - name: Create Certificate
         run: |
-          while read l; do echo $l; done < "${{ secrets.LOCAL_CA_CERT_PATH }}" >> $(pwd)/ca.crt
+          while read l; do printf $l; done < "${{ secrets.LOCAL_CA_CERT_PATH }}" >> $(pwd)/ca.crt
 
       # Run Synopsys Detect
       - name: Run Synopsys Detect
