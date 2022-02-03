@@ -26,10 +26,6 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-        
-      - name: Create Certificate
-        run: |
-          while read l; do printf $l; done < "${{ secrets.LOCAL_CA_CERT_PATH }}" >> $(pwd)/ca.crt
 
       # Run Synopsys Detect
       - name: Run Synopsys Detect
@@ -40,7 +36,7 @@ jobs:
           DETECT_DIAGNOSTIC: true
         #  DETECT_DIAGNOSTIC_EXTENDED: true
         with:
-            scan-mode: RAPID
+            scan-mode: INTELLIGENT
             github-token: ${{ secrets.GITHUB_TOKEN }}
             detect-version: 7.9.0
             blackduck-url: ${{ secrets.BLACKDUCK_URL }}
