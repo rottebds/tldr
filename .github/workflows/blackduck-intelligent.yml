@@ -30,14 +30,14 @@ jobs:
       - name: Create Certificate
         run: |
           mkdir /run/secrets
-          printf ${{ secrets.LOCAL_CA_CERT_PATH }} > /run/secrets/ca.crt
+          printf ${{ secrets.LOCAL_CA_CERT_PATH }} > ~/ca.crt
 
       # Run Synopsys Detect
       - name: Run Synopsys Detect
         uses: synopsys-sig/detect-action@v0.2.0
         # This server does not require a local CA Cert
         env:
-          NODE_EXTRA_CA_CERTS: /run/secrets/ca.crt
+          NODE_EXTRA_CA_CERTS: ~/ca.crt
           DETECT_DIAGNOSTIC: true
         #  DETECT_DIAGNOSTIC_EXTENDED: true
         with:
