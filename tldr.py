@@ -1,6 +1,6 @@
 #
-# Author: Alex Sullivan
-# Version: 1.1
+# Author: Alex Sullivan, Peter Green
+# Version: 1.2
 # Usage:
 # python3 tldr.py --log /path/to/blackduck_bds.zip
 # python3 tldr.py --log /path/to/blackduck_bds
