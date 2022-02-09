@@ -25,25 +25,16 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-          
-      - name: Create certificate
-        run: cat <<< "${{secrets.BASE_64_CERTIFICATE_CONTENT}}" > my-cert.pem
       
       - name: Pip Install
         run: pip3 install -r ./requirements.txt
 
       # Run Synopsys Detect
       - name: Run Synopsys Detect
-        uses: synopsys-sig/detect-action@v0.2.0
-        # This server does not require a local CA Cert
-        #env:
-        #  NODE_EXTRA_CA_CERTS: ${{ secrets.LOCAL_CA_CERT_PATH }}
-        # Enable diagnostic mode
+        uses: synopsys-sig/detect-action@v0.3.0
         env:
           DETECT_DIAGNOSTIC: true
-          NODE_EXTRA_CA_CERTS: my-cert.pem
-          #NODE_TLS_REJECT_UNAUTHORIZED: 0
-        #  DETECT_DIAGNOSTIC_EXTENDED: true
+          NODE_TLS_REJECT_UNAUTHORIZED: 0
         with:
             scan-mode: RAPID
             github-token: ${{ secrets.GITHUB_TOKEN }}
